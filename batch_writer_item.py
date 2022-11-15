@@ -1,6 +1,7 @@
 import boto3
 
-dynamodb = boto3.client('dynamodb')
+#I was using client instead of resource and kept receiving errors!
+dynamodb = boto3.resource('dynamodb') 
 
 NFL_Teams = [
     {'Cities': 'Philadelphia', 'Team-Name': 'Eagles'},
@@ -14,10 +15,13 @@ NFL_Teams = [
     {'Cities': 'Tennessee', 'Team-Name': 'Titans'},
     {'Cities': 'New York', 'Team-Name': 'Jets'},
     ]
+
+#Using resource instead of client allows us to create a variable for our table  
+table = dynamodb.Table("NFL-2022")
     
-    #Using the list above to iterate through and add items to the DynamoDB table
-    with table.batch_writer() as batch:
-        for Team in NFL_Teams:
-            batch.put_item(Item={'Cities'})
+#Using the list above to iterate through and add items to the DynamoDB table
+with table.batch_writer() as batch:
+    for Team in NFL_Teams:
+        batch.put_item(Item=Team)
 
 

@@ -6,7 +6,7 @@ dynamodb = boto3.client('dynamodb')
     
 #Creating table
 table = dynamodb.create_table(
-    TableName='NFL-2024',
+    TableName='NFL-2022',
     KeySchema=[
         {
             'AttributeName': 'Cities',
